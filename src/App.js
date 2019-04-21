@@ -1,25 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import { Container, Row, Col,Form,Button } from 'react-bootstrap'
+import BinaryTextBox from './Components/BinaryTextBox'
+import Header from './Components/Header'
 class App extends Component {
+  constructor(...args) {
+    super(...args);
+
+    this.state = { validated: false };
+  }
+  handleSubmit(event) {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.setState({ validated: true });
+    console.log(this.state.name);
+    event.preventDefault();
+  }
   render() {
+    const { validated } = this.state;
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Header></Header>
+        <Container>
+          <Form
+          noValidate
+          validated={validated}
+          onSubmit={e => this.handleSubmit(e)}>
+            <Form.Row>
+                <Form.Group as={Col} md="3" controlId="formBinary">
+                  <Form.Label>Binary</Form.Label>
+                  <BinaryTextBox className="form-control" required={true} maxlength={8} ></BinaryTextBox>
+                </Form.Group>          
+            </Form.Row>
+            <Button type="submit" size="sm">Convert</Button>
+          </Form>
+        </Container>
       </div>
     );
   }
