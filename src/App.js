@@ -8,7 +8,8 @@ class App extends Component {
     super(...args);
 
     this.state = { validated: false,
-                   binarytext: '' };
+                   binarytext: '' ,
+                   decimalval : ''};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlebinaryinputchange = this.handlebinaryinputchange.bind(this);
   }
@@ -23,6 +24,15 @@ class App extends Component {
       event.stopPropagation();
     }
     this.setState({ validated: true });
+
+    const reversedBinaryText = Array.from(this.state.binarytext)
+      .map(Number) // Convert to a number from string
+      .reverse()
+      var dec = reversedBinaryText.reduce( function(accumulator, currentValue,idx){
+        return accumulator + (currentValue * Math.pow(2,idx))
+      });
+    
+    this.setState({decimalval : dec});
     console.log(this.state.binarytext);
     event.preventDefault();
   }
@@ -42,7 +52,16 @@ class App extends Component {
                   <BinaryTextBox className="form-control" required={true} onTextChange={this.handlebinaryinputchange} value={this.state.binarytext} maxlength={8} ></BinaryTextBox>
                 </Form.Group>          
             </Form.Row>
+            <Form.Row>
             <Button type="submit" size="sm">Convert</Button>
+            </Form.Row>
+            <Form.Row>
+            <Form.Group as={Col} md="3" controlId="formBinary">
+                  <Form.Label>Decimal</Form.Label>
+                  <Form.Control type="text" placeholder="Decimal Value" readOnly value={this.state.decimalval}></Form.Control>
+                </Form.Group>   
+            </Form.Row>
+            
           </Form>
         </Container>
       </div>
