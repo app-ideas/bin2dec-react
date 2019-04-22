@@ -17,6 +17,7 @@ class BinaryTextBox extends React.Component {
   else {
     const binaryNumber = ''
     this.setState({binaryNumber});
+    this.props.onTextChange(binaryNumber);
   }
   }
   handleFormChange(attr, event){

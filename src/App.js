@@ -24,14 +24,17 @@ class App extends Component {
       event.stopPropagation();
     }
     this.setState({ validated: true });
-
+    if(this.state.binarytext != ''){
     const reversedBinaryText = Array.from(this.state.binarytext)
       .map(Number) // Convert to a number from string
       .reverse()
       var dec = reversedBinaryText.reduce( function(accumulator, currentValue,idx){
         return accumulator + (currentValue * Math.pow(2,idx))
       });
-    
+    }
+    else{
+    dec = '';
+    }
     this.setState({decimalval : dec});
     console.log(this.state.binarytext);
     event.preventDefault();
