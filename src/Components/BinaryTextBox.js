@@ -12,6 +12,7 @@ class BinaryTextBox extends React.Component {
     const binaryNumber = (evt.target.validity.valid) ? evt.target.value : this.state.binaryNumber;
     console.log(binaryNumber);
     this.setState({ binaryNumber });
+    this.props.onTextChange(binaryNumber);
   }
   else {
     const binaryNumber = ''
@@ -23,8 +24,8 @@ class BinaryTextBox extends React.Component {
     if(event.target.value!=''){
     this.setState({
      [attr]: (event.target.validity.valid) ? event.target.value : this.state.binaryNumber
-    })
-  }
+    });
+      }
     }
    
   render() {
@@ -36,7 +37,7 @@ class BinaryTextBox extends React.Component {
         className={this.props.className} 
         onInput={this.handleChange.bind(this)} 
         value={this.state.binaryNumber}
-        onChange={this.handleFormChange.bind(this, "text")} />
+        onChange={this.handleFormChange.bind(this, "value")} />
     )
   }
 }

@@ -7,7 +7,14 @@ class App extends Component {
   constructor(...args) {
     super(...args);
 
-    this.state = { validated: false };
+    this.state = { validated: false,
+                   binarytext: '' };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlebinaryinputchange = this.handlebinaryinputchange.bind(this);
+  }
+  handlebinaryinputchange(binaryval)
+  {
+    this.setState({binarytext: binaryval});
   }
   handleSubmit(event) {
     const form = event.currentTarget;
@@ -16,7 +23,7 @@ class App extends Component {
       event.stopPropagation();
     }
     this.setState({ validated: true });
-    console.log(this.state.name);
+    console.log(this.state.binarytext);
     event.preventDefault();
   }
   render() {
@@ -32,7 +39,7 @@ class App extends Component {
             <Form.Row>
                 <Form.Group as={Col} md="3" controlId="formBinary">
                   <Form.Label>Binary</Form.Label>
-                  <BinaryTextBox className="form-control" required={true} maxlength={8} ></BinaryTextBox>
+                  <BinaryTextBox className="form-control" required={true} onTextChange={this.handlebinaryinputchange} value={this.state.binarytext} maxlength={8} ></BinaryTextBox>
                 </Form.Group>          
             </Form.Row>
             <Button type="submit" size="sm">Convert</Button>
